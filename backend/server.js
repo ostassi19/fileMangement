@@ -12,8 +12,10 @@ const app=express()
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-app.use('/api/goals',require('./routes/goalRoutes'))
+app.use('/api/files',require('./routes/fileRoutes'))
 app.use('/api/users',require('./routes/userRoutes'))
+app.use('/api/folders',require('./routes/folderRoutes'))
+app.use('/api/category',require('./routes/categoryRoutes'))
 app.use(errorHandler)
 
 app.listen(port,()=>console.log(`Server started on port ${port}`))
