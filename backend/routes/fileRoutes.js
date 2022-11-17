@@ -15,4 +15,6 @@ router.route('/:id').put(protect,updateFiles).delete(protect,deleteFiles)
 router.route('/fake').post(protect,createFakeFiles)
 
 router.route('/massive').post(protect,createMassiveFiles)
+
+router.route('/upload').post(protect,updateFiles)
 module.exports= router

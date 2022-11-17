@@ -4,6 +4,7 @@ const faker = require('@faker-js/faker')
 const File = require('../models/fileModel')
 const User = require('../models/userModel')
 const Category= require('../models/categoryModel')
+const multer = require("multer")
 
 // @desc get files
 // @route GET /api/files
@@ -151,6 +152,35 @@ const deleteFiles=asyncHandler( async (req, res) => {
     res.status(200).json({id : req.params.id})
 })
 
+// @desc upload file
+// @route Post /api/files/upload
+// @access Private
+const uploadFile=asyncHandler( async (req,res)=> {
+
+     multer({
+
+
+        fileFilter: function (req, file, cb){
+
+            // Set the filetypes, it is optional
+            var filetypes = /jpeg|jpg|png/;
+            var mimetype = filetypes.test(file.mimetype);
+
+            var extname = filetypes.test(path.extname(
+                file.originalname).toLowerCase());
+
+            if (mimetype && extname) {
+                return cb(null, true);
+            }
+
+            cb("Error: File upload only supports the "
+                + "following filetypes - " + filetypes);
+        }
+
+// mypic is the name of file attribute
+    }).single("mypic");
+    res.send("Success, Image uploaded!")
+})
 
 module.exports={
     getFiles,
